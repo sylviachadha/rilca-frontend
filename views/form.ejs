@@ -1,0 +1,364 @@
+<% include header.ejs %>
+
+<div class="container" style="margin-top: 1em;">
+
+    <form action="/form" method="post">
+        <!--Form Header-->
+        <div class="row">
+            <div class="col">
+                <div class="d-flex justify-content-center">Performance Evaluation Form of RLICA staffs- Lecturer</div>
+                <div class="d-flex justify-content-center">Research Institute for Languages and Cultures of Asia, FY
+                    2018
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="namesList">Name</label>
+                    </div>
+                    <select class="custom-select" name="staffID" id="namesList">
+                        <option selected>Choose...</option>
+                        <% names.forEach(function(name){ %>
+                        <option value="<%= name.ID %>"><%= name.FirstName + " " +  name.LastName + ", ID: " + name.ID %></option>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="d-flex justify-content-left pb-2">
+                    PA: Standard Section(60%)<br>
+                    Please check ✓ into the box which you intend to perform for FY 2018 (1 July 2018 – 30 June 2018)
+                    <br>
+                    Please consider selecting at least 60 points in this standard section.
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!-- Column 1-->
+            <div class="col border border-light m-1">
+                <p class="pt-2 m-1">1. Research/academic article published in journal</p>
+                <p class="pl-2 pt-2 m-1">1.1 National level (Journal on TCI database)</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="4" value="30" id="4">
+                    <label class="custom-control-label" for="4">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="5" value="10" id="5">
+                    <label class="custom-control-label" for="5">co-author (<=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">1.2 International level (no record in international database)</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="7" value="40" id="7">
+                    <label class="custom-control-label" for="7">main author (>=50%) = 40 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="8" value="15" id="8">
+                    <label class="custom-control-label" for="8">co-author (<=50%) = 15 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">1.3 International level (recorded in international database) </p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="10" value="60" id="10">
+                    <label class="custom-control-label" for="10">main author (>=50%) = 60 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="11" value="25" id="11">
+                    <label class="custom-control-label" for="11">co-author (<=50%) = 25 points</label>
+                </div>
+                <p class="pl-2 pt-2 m-1">(articles published last year can be submitted for evaluation)</p>
+                <hr>
+
+                <p class="m-0">2. Academic works in accordance with 22 indicators </p>
+                <p class="pl-2 pt-2 m-1">2.1 Conference contribution/ proceedings</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="15" value="18" id="15">
+                    <label class="custom-control-label" for="15">main author (>=50%) = 18 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="16" value="6" id="16">
+                    <label class="custom-control-label" for="16">co-author (<=50%) = 6 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.2 Research report </p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="18" value="24" id="18">
+                    <label class="custom-control-label" for="18">main author (>=50%) = 24 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="19" value="8" id="19">
+                    <label class="custom-control-label" for="19">co-author (<=50%) = 8 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.3 Authored book</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="21" value="30" id="21">
+                    <label class="custom-control-label" for="21">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="22" value="60" id="22">
+                    <label class="custom-control-label" for="22">co-author (<=50%) = 60 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.4 Chapter in book</p>
+                <p class="ml-3 mb-0">ระดับชาติ</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="25" value="18" id="25">
+                    <label class="custom-control-label" for="25">main author (>=50%) = 18 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3 mb-1">
+                    <input type="checkbox" class="custom-control-input" name="26" value="6" id="26">
+                    <label class="custom-control-label" for="26">co-author (<=50%) = 6 points</label>
+                </div>
+                <p class="ml-3 mb-0"><u>International level</u></p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="28" value="36" id="28">
+                    <label class="custom-control-label" for="28">main author (>=50%) = 36 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="29" value="15" id="29">
+                    <label class="custom-control-label" for="29">co-author (<=50%) = 15 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.5 Editorial work</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="31" value="18" id="31">
+                    <label class="custom-control-label" for="31">editor = 18 points</label>
+                </div>
+
+            </div>
+
+            <!-- Column 2-->
+            <div class="col border border-light m-1">
+
+                <p class="pl-2 pt-2 m-1">2.6 Collected articles by a single author</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="33" value="24" id="33">
+                    <label class="custom-control-label" for="33">main author = 24 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.7 Collected articles by a group of scholars</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="35" value="15" id="35">
+                    <label class="custom-control-label" for="35">main author (>=50%) = 15 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="36" value="5" id="36">
+                    <label class="custom-control-label" for="36">co-author (<=50%) = 5 points</label>
+                </div>
+
+                <!-- TODO: 2.8 Confirm name-->
+                <p class="pl-2 pt-2 m-1">2.8 Festschrift</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="38" value="15" id="38">
+                    <label class="custom-control-label" for="38">main author (>=50%) = 15 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="39" value="5" id="39">
+                    <label class="custom-control-label" for="39">co-author (<=50%) = 5 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.9 Translation with editorial work</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="41" value="18" id="41">
+                    <label class="custom-control-label" for="41">main author (>=50%) = 18 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="42" value="6" id="42">
+                    <label class="custom-control-label" for="42">co-author (<=50%) = 6 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.10 Manual/handbook</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="44" value="24" id="44">
+                    <label class="custom-control-label" for="44">main author (>=50%) = 24 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="45" value="8" id="45">
+                    <label class="custom-control-label" for="45">co-author (<=50%) = 8 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.11 Review article</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="47" value="30" id="47">
+                    <label class="custom-control-label" for="47">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="48" value="10" id="48">
+                    <label class="custom-control-label" for="48">co-author (<=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.12 Annotated bibliography</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="50" value="15" id="50">
+                    <label class="custom-control-label" for="50">main author (>=50%) = 15 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="51" value="5" id="51">
+                    <label class="custom-control-label" for="51">co-author (<=50%) = 5 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.13 Review Book/article/exhibition/performance</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="53" value="6" id="53">
+                    <label class="custom-control-label" for="53">main author (>=50%) = 6 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="54" value="2" id="54">
+                    <label class="custom-control-label" for="54">co-author (<=50%) = 2 points</label>
+                </div>
+
+                <!--TODO 2.14 Marks or Points?-->
+                <p class="pl-2 pt-2 m-1">2.14 Public lecture/inaugural lecture<br>/memorial lecture/lecture series</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="56" value="18" id="56">
+                    <label class="custom-control-label" for="56">speaker/lecturer = 18 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.15 Dictionary/ encyclopedia</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="58" value="30" id="58">
+                    <label class="custom-control-label" for="58">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="59" value="12" id="59">
+                    <label class="custom-control-label" for="59">co-author (<=50%) = 12 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.16 Scholarly edition</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="61" value="24" id="61">
+                    <label class="custom-control-label" for="61">main author (>=50%) = 24 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="62" value="8" id="62">
+                    <label class="custom-control-label" for="62">co-author (<=50%) = 8 points</label>
+                </div>
+            </div>
+
+            <!--Column 3-->
+            <div class="col border border-light m-1">
+                <!--Change to co-operator-->
+                <p class="pl-2 pt-2 m-1">2.17 Literature</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="64" value="30" id="64">
+                    <label class="custom-control-label" for="64">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="65" value="10" id="65">
+                    <label class="custom-control-label" for="65">co-author (<=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.18 Performing arts/ music</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="67" value="30" id="67">
+                    <label class="custom-control-label" for="67">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="68" value="10" id="68">
+                    <label class="custom-control-label" for="68">co-author (<=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.19 Architecture/ design/ painting/sculpture/<br> graphic arts/ related fields
+                </p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="70" value="30" id="70">
+                    <label class="custom-control-label" for="70">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="71" value="10" id="71">
+                    <label class="custom-control-label" for="71">co-author (<=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">2.20 Patent</p>
+                <p class="pl-2 pt-2 m-1">Patent for invention</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="74" value="30" id="74">
+                    <label class="custom-control-label" for="74">main author (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="75" value="10" id="75">
+                    <label class="custom-control-label" for="75">co-author (<=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-1">Patent design</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="77" value="12" id="77">
+                    <label class="custom-control-label" for="77">main author (>=50%) = 12 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="78" value="4" id="78">
+                    <label class="custom-control-label" for="78">co-author (<=50%) = 4 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-0">Software</p>
+                <p class="pl-2 pt-2 m-0">Creative process with pioneering ideas</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="81" value="30" id="81">
+                    <label class="custom-control-label" for="81">main operator (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="82" value="10" id="82">
+                    <label class="custom-control-label" for="82">co-operator (<>>=50%) = 10 points</label>
+                </div>
+
+                <p class="pl-2 pt-2 m-0">Build on existing software</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="84" value="30" id="84">
+                    <label class="custom-control-label" for="84">main operator (>=50%) = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="85" value="15" id="85">
+                    <label class="custom-control-label" for="85">co-operator (<=50%) = 15 points</label>
+                </div>
+                <hr>
+                <p class="m-0">3. Research project</p>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="87" value="30" id="87">
+                    <label class="custom-control-label" for="87">Project investigator = 30 points</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="88" value="15" id="88">
+                    <label class="custom-control-label" for="88">Co-researcher = 15 points</label>
+                </div>
+                <hr>
+
+                <div>
+                    <p class="m-0 pb-2">4. Lecture (please specify the course which is being an instructor or a a
+                        co-teaching (1 course) (15 points)</p>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="2" name="89" id="coures"></textarea>
+                    </div>
+                </div>
+                <hr>
+
+                <div>
+                    <p class="m-0 pb-2">5. Participate in requiring events of RILCA (5 points)</p>
+                    <div class="form-group">
+                        <!--TODO Confirm if textarea required for this-->
+                        <textarea class="form-control" rows="2" name="90" id="event"></textarea>
+                    </div>
+                </div>
+                <hr>
+
+            </div>
+        </div>
+        <div id="row">
+            <div class="col">
+                <button class="btn btn-info btn-block my-4" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+<% include footer.ejs %>
