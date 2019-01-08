@@ -95,31 +95,5 @@ async function insertLine(req, docID) {
     }
 }
 
-async function asyncFunction(staffID) {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        const rows_1 = await conn.query("SELECT RILCA.STAFF.Program_ID FROM RILCA.STAFF WHERE RILCA.STAFF.Staff_ID = ?", [staffID]);
-        const programID = rows_1[0].Program_ID;
-        console.log("Program: " + programID);
-        const rows_2 = await conn.query("SELECT RILCA.STAFF.Staff_ID FROM RILCA.STAFF WHERE RILCA.STAFF.Program_ID = ? AND RILCA.STAFF.STAFF_TYPE = ?", [programID, 'Supportive_staff']);
-        const support_staff_id = rows_2[0].Staff_ID;
-        console.log("Supportive Staff ID: " + support_staff_id);
-        const rows_3 = await conn.query("SELECT RILCA.STAFF.Staff_ID FROM RILCA.STAFF WHERE RILCA.STAFF.Program_ID = ? AND RILCA.STAFF.STAFF_TYPE = ?", [programID, 'Deputy_Director']);
-        const deputy_director = rows_3[0].Staff_ID;
-        console.log("Deputy_Director: " + deputy_director);
-
-        const rows_4 = await conn.query("SELECT RILCA.STAFF.Staff_ID FROM RILCA.STAFF WHERE RILCA.STAFF.STAFF_TYPE = ?", ['Director']);
-        const director = rows_4[0].Staff_ID;
-        console.log("Director ID: " + director);
-
-        return "hello"
-
-    } catch (err) {
-        throw err;
-    } finally {
-        if (conn) return conn.end();
-    }
-}
 
 module.exports = router;
