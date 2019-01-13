@@ -15,6 +15,12 @@ router.get('/', async (req, res) => {
 
 });
 
+//Test
+router.get('/myitem', async (req, res) => {
+    await setNamesInForm();
+    res.render('myitem', {names: names});
+});
+
 router.post('/form', async (req, res) => {
 
     console.log(JSON.stringify(req.body));
