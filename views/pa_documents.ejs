@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        <% dd.forEach(function(doc){ %>
+        <% documents.forEach(function(doc){ %>
         <tr>
             <td><%= doc.Staff_ID %></td>
             <td><%= doc.Full_Name %></td>
@@ -26,7 +26,9 @@
             <td><%= doc.Number_of_Items %></td>
             <td><%= doc.Approve_Status %></td>
             <td><%= doc.Accept_Status %></td>
-            <td><%= doc.Doc_ID %></td>
+            <td>
+                <a class="btn btn-primary btn-xs" role="button" href="/documents/view_pa_doc?doc_ID=<%= doc.Doc_ID %>">Detail</a>
+            </td>
         </tr>
         <% }); %>
     </tbody>

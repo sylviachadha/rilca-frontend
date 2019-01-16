@@ -7,17 +7,8 @@ const moment = require('moment');
 
 let names = [];
 
-/* GET home page. */
+//get all pa documents
 router.get('/', async (req, res) => {
-
-    await setNamesInForm();
-    res.render('form', {names: names});
-
-});
-
-//Test
-router.get('/index', async (req, res) => {
-    console.log("Start");
     documents = [];
     let conn;
     try {
@@ -36,7 +27,7 @@ router.get('/index', async (req, res) => {
             })
         }
         console.log(documents);
-        res.render('pa_documents', {dd: documents});
+        res.render('pa_documents', {documents: documents});
     } catch (err) {
         throw err;
     } finally {
@@ -45,7 +36,68 @@ router.get('/index', async (req, res) => {
     
 });
 
-router.post('/form', async (req, res) => {
+//get a specific pa document via document ID
+router.get('/view_pa_doc', async (req, res) => {
+    var doc_ID = req.param('doc_ID');
+    console.log(doc_ID);
+
+    document = [];
+    paLines = [];
+
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        //get a specific document
+        const rowsDoc = await conn.query("select * from pa_document where doc_ID = '" + doc_ID + "'");
+        for (let row of rowsDoc) {
+            document.push({
+                "Doc_ID":row.Doc_ID,
+                "Doc_year":row.Doc_year,
+                "Doc_Status":row.Doc_Status,
+                "DirSign_Date":row.DirSign_Date,
+                "DDirSign_Date":row.DDirSign_Date,
+                "Approve_Date":row.Approve_Date,
+                "Set_date":row.Set_date,
+                "Accept_date":row.Accept_date,
+                "SignDir_ID":row.SignDir_ID,
+                "SignDDir_ID":row.SignDDir_ID,
+                "PAExec_ID":row.PAExec_ID,
+                "Acad_ID":row.PAExec_ID
+            })
+        }
+        console.log(document);
+
+        //get all pa lines related to pa doucment above
+        const rowsLine = await conn.query("select pa_item.Item_ID, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '"+ doc_ID +"'");
+        for (let row of rowsLine) {
+            paLines.push({
+                "Item_ID":row.Item_ID,
+                "G_Desc_eng":row.G_Desc_eng,
+                "G_Desc_thai":row.G_Desc_thai,
+                "PAline_Score":row.PAline_Score
+            })
+        }
+        console.log(paLines);
+        
+        res.render('pa_document_detail', {document: document, paLines:paLines});
+    } catch (err) {
+        console.log(err)
+        throw err;
+    } finally {
+        if (conn) return conn.end();
+    }
+});
+
+/* open form for academic staff for choosing pa items */
+router.get('/new_document', async (req, res) => {
+
+    await setNamesInForm();
+    res.render('form', {names: names});
+
+});
+
+// submit the choosen pa items
+router.post('/new_document', async (req, res) => {
 
     console.log(JSON.stringify(req.body));
 
@@ -96,7 +148,6 @@ async function insertDocument(req, docID) {
         }
     }
 }
-
 
 async function insertLine(req, docID) {
     if (req.staffID) {

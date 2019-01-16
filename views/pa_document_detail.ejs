@@ -1,0 +1,43 @@
+<% layout('layout/layout_v1') -%>
+
+<h4>Document Detail</h4>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            
+        </div>
+        <div class="col-md-6">
+            column 2
+        </div>
+    </div>
+</div>
+<br>
+
+<h4>Chosen Items</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>PA Item ID</th>
+            <th>Description</th>
+            <th>Score</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% paLines.forEach(function(line){ %>
+        <tr>
+            <td><%= line.Item_ID %></td>
+            <td><%= line.G_Desc_eng %> <br> <%= line.G_Desc_thai %></td>
+            <td><%= line.PAline_Score %></td>
+            <td>
+                <a href="/documents/view_pa_doc?doc_ID=<%= line.Item_ID %>" role="button" class="btn btn-xs btn-primary">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="/documents/view_pa_doc?doc_ID=<%= line.Item_ID %>" role="button" class="btn btn-xs btn-danger">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
