@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include header.ejs %>
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- nav bar -->
+    <% include navbar.ejs %>
+
+    <div class="container-fluid page-body-wrapper">
+      <!-- side bar -->
+      <% include sidebar.ejs %>
+      <!-- main area -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <%- body %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer script -->
+  <% include footer.ejs %>
+</body>
+
+</html>

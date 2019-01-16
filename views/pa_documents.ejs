@@ -1,0 +1,33 @@
+<% layout('layout/layout_v1') -%>
+
+<h2>Documents Setting</h2>
+<p>Here are the records of academic staffs who set their PA items</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Staff ID</th>
+            <th>Full Name</th>
+            <th>Postion</th>
+            <th>Set Date</th>
+            <th>Number of Items</th>
+            <th>Approval</th>
+            <th>Acceptance</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% dd.forEach(function(doc){ %>
+        <tr>
+            <td><%= doc.Staff_ID %></td>
+            <td><%= doc.Full_Name %></td>
+            <td><%= doc.Title %></td>
+            <td><%= doc.Set_date %></td>
+            <td><%= doc.Number_of_Items %></td>
+            <td><%= doc.Approve_Status %></td>
+            <td><%= doc.Accept_Status %></td>
+            <td><%= doc.Doc_ID %></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
