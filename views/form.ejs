@@ -1,14 +1,15 @@
-<% include header.ejs %>
+<% layout('layout/layout_v1') -%>
 
-<div class="container" style="margin-top: 1em;">
 
-    <form action="/form" method="post">
+<div class="container-fluid" style="margin-top: 1em;">
+
+    <form action="/documents/new_document" method="post">
         <!--Form Header-->
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center">Performance Evaluation Form of RLICA staffs- Lecturer</div>
-                <div class="d-flex justify-content-center">Research Institute for Languages and Cultures of Asia, FY
-                    2018
+                <div class="d-flex justify-content-center">
+                    Research Institute for Languages and Cultures of Asia, FY 2018
                 </div>
             </div>
         </div>
@@ -44,8 +45,8 @@
         <div class="row">
             <!-- Column 1-->
             <div class="col border border-light m-1">
-                <p class="pt-2 m-1">1. Research/academic article published in journal</p>
-                <p class="pl-2 pt-2 m-1">1.1 National level (Journal on TCI database)</p>
+                <div class="pt-2 m-1">1. Research/academic article published in journal</div>
+                <div class="pl-2 pt-2 m-1">1.1 National level (Journal on TCI database)</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="4" value="30" id="4">
                     <label class="custom-control-label" for="4">main author (>=50%) = 30 points</label>
@@ -55,7 +56,7 @@
                     <label class="custom-control-label" for="5">co-author (<=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">1.2 International level (no record in international database)</p>
+                <div class="pl-2 pt-2 m-1">1.2 International level (no record in international database)</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="7" value="40" id="7">
                     <label class="custom-control-label" for="7">main author (>=50%) = 40 points</label>
@@ -65,7 +66,7 @@
                     <label class="custom-control-label" for="8">co-author (<=50%) = 15 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">1.3 International level (recorded in international database) </p>
+                <div class="pl-2 pt-2 m-1">1.3 International level (recorded in international database) </div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="10" value="60" id="10">
                     <label class="custom-control-label" for="10">main author (>=50%) = 60 points</label>
@@ -74,11 +75,11 @@
                     <input type="checkbox" class="custom-control-input" name="11" value="25" id="11">
                     <label class="custom-control-label" for="11">co-author (<=50%) = 25 points</label>
                 </div>
-                <p class="pl-2 pt-2 m-1">(articles published last year can be submitted for evaluation)</p>
+                <div class="pl-2 pt-2 m-1">(articles published last year can be submitted for evaluation)</div>
                 <hr>
 
-                <p class="m-0">2. Academic works in accordance with 22 indicators </p>
-                <p class="pl-2 pt-2 m-1">2.1 Conference contribution/ proceedings</p>
+                <div class="m-0">2. Academic works in accordance with 22 indicators </div>
+                <div class="pl-2 pt-2 m-1">2.1 Conference contribution/ proceedings</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="15" value="18" id="15">
                     <label class="custom-control-label" for="15">main author (>=50%) = 18 points</label>
@@ -88,7 +89,7 @@
                     <label class="custom-control-label" for="16">co-author (<=50%) = 6 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.2 Research report </p>
+                <div class="pl-2 pt-2 m-1">2.2 Research report </div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="18" value="24" id="18">
                     <label class="custom-control-label" for="18">main author (>=50%) = 24 points</label>
@@ -98,7 +99,7 @@
                     <label class="custom-control-label" for="19">co-author (<=50%) = 8 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.3 Authored book</p>
+                <div class="pl-2 pt-2 m-1">2.3 Authored book</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="21" value="30" id="21">
                     <label class="custom-control-label" for="21">main author (>=50%) = 30 points</label>
@@ -108,8 +109,8 @@
                     <label class="custom-control-label" for="22">co-author (<=50%) = 60 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.4 Chapter in book</p>
-                <p class="ml-3 mb-0">ระดับชาติ</p>
+                <div class="pl-2 pt-2 m-1">2.4 Chapter in book</div>
+                <div class="ml-3 mb-0">ระดับชาติ</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="25" value="18" id="25">
                     <label class="custom-control-label" for="25">main author (>=50%) = 18 points</label>
@@ -118,7 +119,7 @@
                     <input type="checkbox" class="custom-control-input" name="26" value="6" id="26">
                     <label class="custom-control-label" for="26">co-author (<=50%) = 6 points</label>
                 </div>
-                <p class="ml-3 mb-0"><u>International level</u></p>
+                <div class="ml-3 mb-0"><u>International level</u></div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="28" value="36" id="28">
                     <label class="custom-control-label" for="28">main author (>=50%) = 36 points</label>
@@ -128,7 +129,7 @@
                     <label class="custom-control-label" for="29">co-author (<=50%) = 15 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.5 Editorial work</p>
+                <div class="pl-2 pt-2 m-1">2.5 Editorial work</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="31" value="18" id="31">
                     <label class="custom-control-label" for="31">editor = 18 points</label>
@@ -139,13 +140,13 @@
             <!-- Column 2-->
             <div class="col border border-light m-1">
 
-                <p class="pl-2 pt-2 m-1">2.6 Collected articles by a single author</p>
+                <div class="pl-2 pt-2 m-1">2.6 Collected articles by a single author</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="33" value="24" id="33">
                     <label class="custom-control-label" for="33">main author = 24 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.7 Collected articles by a group of scholars</p>
+                <div class="pl-2 pt-2 m-1">2.7 Collected articles by a group of scholars</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="35" value="15" id="35">
                     <label class="custom-control-label" for="35">main author (>=50%) = 15 points</label>
@@ -156,7 +157,7 @@
                 </div>
 
                 <!-- TODO: 2.8 Confirm name-->
-                <p class="pl-2 pt-2 m-1">2.8 Festschrift</p>
+                <div class="pl-2 pt-2 m-1">2.8 Festschrift</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="38" value="15" id="38">
                     <label class="custom-control-label" for="38">main author (>=50%) = 15 points</label>
@@ -166,7 +167,7 @@
                     <label class="custom-control-label" for="39">co-author (<=50%) = 5 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.9 Translation with editorial work</p>
+                <div class="pl-2 pt-2 m-1">2.9 Translation with editorial work</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="41" value="18" id="41">
                     <label class="custom-control-label" for="41">main author (>=50%) = 18 points</label>
@@ -176,7 +177,7 @@
                     <label class="custom-control-label" for="42">co-author (<=50%) = 6 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.10 Manual/handbook</p>
+                <div class="pl-2 pt-2 m-1">2.10 Manual/handbook</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="44" value="24" id="44">
                     <label class="custom-control-label" for="44">main author (>=50%) = 24 points</label>
@@ -186,7 +187,7 @@
                     <label class="custom-control-label" for="45">co-author (<=50%) = 8 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.11 Review article</p>
+                <div class="pl-2 pt-2 m-1">2.11 Review article</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="47" value="30" id="47">
                     <label class="custom-control-label" for="47">main author (>=50%) = 30 points</label>
@@ -196,7 +197,7 @@
                     <label class="custom-control-label" for="48">co-author (<=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.12 Annotated bibliography</p>
+                <div class="pl-2 pt-2 m-1">2.12 Annotated bibliography</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="50" value="15" id="50">
                     <label class="custom-control-label" for="50">main author (>=50%) = 15 points</label>
@@ -206,7 +207,7 @@
                     <label class="custom-control-label" for="51">co-author (<=50%) = 5 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.13 Review Book/article/exhibition/performance</p>
+                <div class="pl-2 pt-2 m-1">2.13 Review Book/article/exhibition/performance</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="53" value="6" id="53">
                     <label class="custom-control-label" for="53">main author (>=50%) = 6 points</label>
@@ -217,13 +218,13 @@
                 </div>
 
                 <!--TODO 2.14 Marks or Points?-->
-                <p class="pl-2 pt-2 m-1">2.14 Public lecture/inaugural lecture<br>/memorial lecture/lecture series</p>
+                <div class="pl-2 pt-2 m-1">2.14 Public lecture/inaugural lecture<br>/memorial lecture/lecture series</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="56" value="18" id="56">
                     <label class="custom-control-label" for="56">speaker/lecturer = 18 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.15 Dictionary/ encyclopedia</p>
+                <div class="pl-2 pt-2 m-1">2.15 Dictionary/ encyclopedia</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="58" value="30" id="58">
                     <label class="custom-control-label" for="58">main author (>=50%) = 30 points</label>
@@ -233,7 +234,7 @@
                     <label class="custom-control-label" for="59">co-author (<=50%) = 12 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.16 Scholarly edition</p>
+                <div class="pl-2 pt-2 m-1">2.16 Scholarly edition</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="61" value="24" id="61">
                     <label class="custom-control-label" for="61">main author (>=50%) = 24 points</label>
@@ -247,7 +248,7 @@
             <!--Column 3-->
             <div class="col border border-light m-1">
                 <!--Change to co-operator-->
-                <p class="pl-2 pt-2 m-1">2.17 Literature</p>
+                <div class="pl-2 pt-2 m-1">2.17 Literature</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="64" value="30" id="64">
                     <label class="custom-control-label" for="64">main author (>=50%) = 30 points</label>
@@ -257,7 +258,7 @@
                     <label class="custom-control-label" for="65">co-author (<=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.18 Performing arts/ music</p>
+                <div class="pl-2 pt-2 m-1">2.18 Performing arts/ music</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="67" value="30" id="67">
                     <label class="custom-control-label" for="67">main author (>=50%) = 30 points</label>
@@ -267,8 +268,8 @@
                     <label class="custom-control-label" for="68">co-author (<=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.19 Architecture/ design/ painting/sculpture/<br> graphic arts/ related fields
-                </p>
+                <div class="pl-2 pt-2 m-1">2.19 Architecture/ design/ painting/sculpture/<br> graphic arts/ related fields
+                </div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="70" value="30" id="70">
                     <label class="custom-control-label" for="70">main author (>=50%) = 30 points</label>
@@ -278,8 +279,8 @@
                     <label class="custom-control-label" for="71">co-author (<=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">2.20 Patent</p>
-                <p class="pl-2 pt-2 m-1">Patent for invention</p>
+                <div class="pl-2 pt-2 m-1">2.20 Patent</div>
+                <div class="pl-2 pt-2 m-1">Patent for invention</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="74" value="30" id="74">
                     <label class="custom-control-label" for="74">main author (>=50%) = 30 points</label>
@@ -289,7 +290,7 @@
                     <label class="custom-control-label" for="75">co-author (<=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-1">Patent design</p>
+                <div class="pl-2 pt-2 m-1">Patent design</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="77" value="12" id="77">
                     <label class="custom-control-label" for="77">main author (>=50%) = 12 points</label>
@@ -299,8 +300,8 @@
                     <label class="custom-control-label" for="78">co-author (<=50%) = 4 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-0">Software</p>
-                <p class="pl-2 pt-2 m-0">Creative process with pioneering ideas</p>
+                <div class="pl-2 pt-2 m-0">Software</div>
+                <div class="pl-2 pt-2 m-0">Creative process with pioneering ideas</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="81" value="30" id="81">
                     <label class="custom-control-label" for="81">main operator (>=50%) = 30 points</label>
@@ -310,7 +311,7 @@
                     <label class="custom-control-label" for="82">co-operator (<>>=50%) = 10 points</label>
                 </div>
 
-                <p class="pl-2 pt-2 m-0">Build on existing software</p>
+                <div class="pl-2 pt-2 m-0">Build on existing software</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="84" value="30" id="84">
                     <label class="custom-control-label" for="84">main operator (>=50%) = 30 points</label>
@@ -320,7 +321,7 @@
                     <label class="custom-control-label" for="85">co-operator (<=50%) = 15 points</label>
                 </div>
                 <hr>
-                <p class="m-0">3. Research project</p>
+                <div class="m-0">3. Research project</div>
                 <div class="custom-control custom-checkbox ml-3">
                     <input type="checkbox" class="custom-control-input" name="87" value="30" id="87">
                     <label class="custom-control-label" for="87">Project investigator = 30 points</label>
@@ -332,8 +333,8 @@
                 <hr>
 
                 <div>
-                    <p class="m-0 pb-2">4. Lecture (please specify the course which is being an instructor or a a
-                        co-teaching (1 course) (15 points)</p>
+                    <div class="m-0 pb-2">4. Lecture (please specify the course which is being an instructor or a a
+                        co-teaching (1 course) (15 points)</div>
                     <div class="form-group">
                         <textarea class="form-control" rows="2" name="89" id="coures"></textarea>
                     </div>
@@ -341,7 +342,7 @@
                 <hr>
 
                 <div>
-                    <p class="m-0 pb-2">5. Participate in requiring events of RILCA (5 points)</p>
+                    <div class="m-0 pb-2">5. Participate in requiring events of RILCA (5 points)</div>
                     <div class="form-group">
                         <!--TODO Confirm if textarea required for this-->
                         <textarea class="form-control" rows="2" name="90" id="event"></textarea>
@@ -351,6 +352,443 @@
 
             </div>
         </div>
+
+        <!-- Development Section -->
+        <div class="row">
+            <div class="col">
+                <div class="d-flex justify-content-left pb-2">
+                    <h3>PA: Development Section(20%)</h3>
+                </div>
+            </div>
+        </div>
+    
+        <!-- group A -->
+        <div class="row">
+            <div class="col border border-light m-1">
+                <div align='center'>หมวดพัฒนา ก : งานพัฒนางานวิจัยและผลงานวิชาการ</div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Column 1-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">1.	ผลิตบทความวิชาการ/วิจัย</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="94" value="0" id="94">
+                    <label class="custom-control-label" for="94">บวกคะแนนที่เกินจาก 60 คะแนนในหมวดมาตรฐาน</label>
+                </div>
+                <hr>
+
+                <div class="pt-2 m-1">2. ผลิตผลงานวิชาการประเภทอื่นๆ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="96" value="0" id="96">
+                    <label class="custom-control-label" for="96">บวกคะแนนที่เกินจาก 60 คะแนนในหมวดมาตรฐาน</label>
+                </div>
+            </div>
+
+            <!-- Column 2-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">3. โครงการวิจัย</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="98" value="0" id="98">
+                    <label class="custom-control-label" for="98">บวกคะแนนที่เกินจาก 60 คะแนนในหมวดมาตรฐาน</label>
+                </div>
+            </div>
+
+            <!-- Column 3-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">4. ที่ปรึกษาในการเขียนบทความวิชาการ และ R2R แก่บุคลากรสายวิชาการรุ่นใหม่ และสายสนับสนุน</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="100" value="10" id="100">
+                    <label class="custom-control-label" for="100">ที่ปรึกษาบทความที่ได้รับการตีพิมพ์ระดับชาติ (10 คะแนน)</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="101" value="20" id="101">
+                    <label class="custom-control-label" for="101">ที่ปรึกษาบทความได้รับการตีพิมพ์ระดับนานาชาติ (20 คะแนน)</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!--End of group A-->
+
+        <!-- group b -->
+        <div class="row">
+            <div class="col border border-light m-1">
+                <div align='center'>หมวดพัฒนา ข : งานพัฒนาคุณภาพนักศึกษา (คิดคะแนนเท่ากันทั้งหลักสูตร)</div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Column 1-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">1.	นักศึกษาได้รับทุนการศึกษาระดับชาติ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="104" value="5" id="104">
+                    <label class="custom-control-label" for="104">= 5 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">2.	นักศึกษาได้รับรางวัลระดับมหาวิทยาลัย/ระดับชาติ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="106" value="5" id="106">
+                    <label class="custom-control-label" for="106">= ระดับมหาวิทยาลัย 5 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="107" value="10" id="107">
+                    <label class="custom-control-label" for="107">= ระดับชาติ 10 คะแนน</label>
+                </div>
+            </div>
+
+            <!-- Column 2-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">3.	นักศึกษาตีพิมพ์บทความนอกเหนือเงื่อนไขการสำเร็จการศึกษา</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="109" value="5" id="109">
+                    <label class="custom-control-label" for="109">= 5 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">4.	นักศึกษาเรียนจบภายในระยะเวลาที่กำหนด (ป.โท 3 ปี ป.เอก 5 ปี)</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="111" value="5" id="111">
+                    <label class="custom-control-label" for="111">= 5 คะแนน</label>
+                </div>
+            </div>
+
+            <!-- Column 3-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">5.	จำนวนนักศึกษาที่รับเป็นไปตามเป้าหมาย</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="113" value="10" id="113">
+                    <label class="custom-control-label" for="113">= 10 คะแนน</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!--End of GroupB-->
+
+        <!-- group C -->
+        <div class="row">
+            <div class="col border border-light m-1">
+                <div align='center'>หมวดพัฒนา ค : งานสร้างสรรค์นวัตกรรม และสร้างผลตอบแทนตามยุทธศาสตร์เร่งด่วน</div>
+                <div align='center'>(โปรดแนบรายละเอียดในงานสร้างสรรค์ที่ท่านวางแผนจะดำเนินการมาพอสังเขป)</div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Column 1-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">1.	พัฒนาหลักสูตรใหม่ภายในปีที่ประเมิน</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="116" value="15" id="116">
+                    <label class="custom-control-label" for="116">ประธาน = 15 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="117" value="10" id="117">
+                    <label class="custom-control-label" for="117">เลขาฯ = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="118" value="8" id="118">
+                    <label class="custom-control-label" for="118">ผู้ช่วยเลขาฯ = 8 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="119" value="5" id="119">
+                    <label class="custom-control-label" for="119">คณะทำงาน = 5 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">2.	พัฒนากลุ่มวิจัย/ศูนย์ใหม่ภายในปีที่ประเมิน</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="121" value="15" id="121">
+                    <label class="custom-control-label" for="121">ประธาน = 15 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="122" value="10" id="122">
+                    <label class="custom-control-label" for="122">เลขาฯ = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="123" value="8" id="123">
+                    <label class="custom-control-label" for="123">ผู้ช่วยเลขาฯ = 8 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="124" value="5" id="124">
+                    <label class="custom-control-label" for="124">คณะทำงาน = 5 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">3.	จัดประชุมวิชาการ</div>
+                <div class="pl-2 pt-2 m-1">3.1 เสวนาระดับมหาวิทยาลัย</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="127" value="8" id="127">
+                    <label class="custom-control-label" for="127">ประธาน = 8 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="128" value="6" id="128">
+                    <label class="custom-control-label" for="128">เลขาฯ = 6 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="129" value="4" id="129">
+                    <label class="custom-control-label" for="129">ผู้ช่วยเลขาฯ = 4 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="130" value="2" id="130">
+                    <label class="custom-control-label" for="130">คณะทำงาน = 2 คะแนน</label>
+                </div>
+
+                <div class="pl-2 pt-2 m-1">3.2 ประชุมวิชาการระดับชาติ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="132" value="12" id="132">
+                    <label class="custom-control-label" for="132">ประธาน = 12 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="133" value="9" id="133">
+                    <label class="custom-control-label" for="133">เลขาฯ = 9 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="134" value="6" id="134">
+                    <label class="custom-control-label" for="134">ผู้ช่วยเลขาฯ = 6 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="135" value="3" id="135">
+                    <label class="custom-control-label" for="135">คณะทำงาน = 3 คะแนน</label>
+                </div>
+            </div>
+
+            <!-- Column 2-->
+            <div class="col border border-light m-1">
+                <div class="pl-2 pt-2 m-1">3.3 ประชุมวิชาการระดับนานาชาติ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="137" value="20" id="137">
+                    <label class="custom-control-label" for="137">ประธาน = 20 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="138" value="15" id="138">
+                    <label class="custom-control-label" for="138">เลขาฯ = 15 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="139" value="10" id="139">
+                    <label class="custom-control-label" for="139">ผู้ช่วยเลขาฯ = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="140" value="5" id="140">
+                    <label class="custom-control-label" for="140">คณะทำงาน = 5 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">4. จัดนิทรรศการวิชาการระดับมหาวิทยาลัย/ระดับชาติเพื่อสร้างชื่อเสียงแก่สถาบันฯ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="142" value="10" id="142">
+                    <label class="custom-control-label" for="142">ประธาน = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="143" value="7" id="143">
+                    <label class="custom-control-label" for="143">เลขาฯ = 7 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="144" value="5" id="144">
+                    <label class="custom-control-label" for="144">ผู้ช่วยเลขาฯ = 5 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="145" value="2" id="145">
+                    <label class="custom-control-label" for="145">คณะทำงาน = 2 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">5.	การสร้าง Social impact/Social engagement (กรุณาแนบโครงการ)</div>
+                <div class="pl-2 pt-2 m-1">5.1 ระดับสถาบันฯ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="148" value="8" id="148">
+                    <label class="custom-control-label" for="148">ประธาน = 8 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="149" value="6" id="149">
+                    <label class="custom-control-label" for="149">เลขาฯ = 6 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="150" value="4" id="150">
+                    <label class="custom-control-label" for="150">ผู้ช่วยเลขาฯ = 4 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="151" value="2" id="151">
+                    <label class="custom-control-label" for="151">คณะทำงาน = 2 คะแนน</label>
+                </div>
+            </div>
+
+            <!-- Column 3-->
+            <div class="col border border-light m-1">
+                <div class="pl-2 pt-2 m-1">5.2 ระดับมหาวิทยาลัย*</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="153" value="12" id="153">
+                    <label class="custom-control-label" for="153">ประธาน = 12 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="154" value="9" id="154">
+                    <label class="custom-control-label" for="154">เลขาฯ = 9 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="155" value="6" id="155">
+                    <label class="custom-control-label" for="155">ผู้ช่วยเลขาฯ = 6 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="156" value="3" id="156">
+                    <label class="custom-control-label" for="156">คณะทำงาน = 3 คะแนน</label>
+                </div>
+                <div class="ml-3">
+                   *ลงทะเบียนตามหลักเกณฑ์ของมหาวิทยาลัย
+                </div>
+
+                <div class="pt-2 m-1">6.	เขียนบทความเพื่อให้ความรู้แก่สังคม</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="159" value="5" id="159">
+                    <label class="custom-control-label" for="159">บทความละ = 5 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">7.	ได้รับเชิญออกสื่อเพื่อให้ความรู้แก่สังคม</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="161" value="10" id="161">
+                    <label class="custom-control-label" for="161">(ถ่ายทำ) ครั้งละ = 10 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">8.	ออกสื่อ Social Media**</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="163" value="0" id="163">
+                    <label class="custom-control-label" for="163">(ถ่ายทำเอง) ครั้งละ = 1-5 คะแนน</label>
+                </div>
+                <div class="ml-3">**ก่อนออกสื่อ กรุณาแจ้งที่งานสื่อสารองค์กร</div>
+
+                <div class="pt-2 m-1">9.	จัดกิจกรรมสร้างรายได้ (สุทธิ) แก่สถาบันฯ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="165" value="10" id="165">
+                    <label class="custom-control-label" for="165">0 – 5,000 = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="166" value="15" id="166">
+                    <label class="custom-control-label" for="166">5,001 – 50,000 = 15 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="167" value="20" id="167">
+                    <label class="custom-control-label" for="167">50,001 – 100,000 = 20 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="168" value="25" id="168">
+                    <label class="custom-control-label" for="168">100,001 – 200,000 = 25 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="169" value="30" id="169">
+                    <label class="custom-control-label" for="169">มากกว่า 200,000 = 30 คะแนน</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!--End of group c-->
+
+        <!--Group D-->
+        <div class="row">
+            <div class="col border border-light m-1">
+                <div align='center'>หมวดพัฒนา ง : งานส่วนกลาง</div>
+                <div align='center'>(โปรดแนบรายละเอียดในงานส่วนกลางที่ท่านวางแผนจะดำเนินการมาพอสังเขป โดยเฉพาะข้อ 4-6)</div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Column 1-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">1.	การบริหารหลักสูตร</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="172" value="10" id="172">
+                    <label class="custom-control-label" for="172">ประธาน = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="173" value="7" id="173">
+                    <label class="custom-control-label" for="173">เลขาฯ = 7 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="174" value="5" id="174">
+                    <label class="custom-control-label" for="174">ผู้ช่วยเลขาฯ = 5 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="175" value="3" id="175">
+                    <label class="custom-control-label" for="175">คณะทำงาน = 3 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">2.	การบริหารกลุ่มวิจัย/ศูนย์</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="177" value="10" id="177">
+                    <label class="custom-control-label" for="177">ประธาน = 10 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="178" value="7" id="178">
+                    <label class="custom-control-label" for="178">เลขาฯ = 7 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="179" value="5" id="179">
+                    <label class="custom-control-label" for="179">ผู้ช่วยเลขาฯ = 5 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="180" value="3" id="180">
+                    <label class="custom-control-label" for="180">คณะทำงาน = 3 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">3.	บรรณาธิการ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="182" value="10" id="182">
+                    <label class="custom-control-label" for="182">= 10 คะแนน</label>
+                </div>
+            </div>
+
+            <!-- Column 2-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">4.	คณะกรรมการ/คณะทำงานชุดต่างๆ</div>
+                <div class="pl-2 pt-2 m-1">4.1 คณะกรรมการที่มีการทำงานต่อเนื่อง</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="185" value="8" id="185">
+                    <label class="custom-control-label" for="185">ประธาน = 8 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="186" value="6" id="186">
+                    <label class="custom-control-label" for="186">เลขาฯ = 6 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="187" value="4" id="187">
+                    <label class="custom-control-label" for="187">ผู้ช่วยเลขาฯ = 4 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="188" value="2" id="188">
+                    <label class="custom-control-label" for="188">คณะทำงาน = 2 คะแนน</label>
+                </div>
+
+                <div class="pl-2 pt-2 m-1">4.2 คณะกรรมการที่เป็นลักษณะโครงการ (ระยะสั้น)</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="190" value="5" id="190">
+                    <label class="custom-control-label" for="190">ประธาน = 5 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="191" value="4" id="191">
+                    <label class="custom-control-label" for="191">เลขาฯ = 4 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="192" value="3" id="192">
+                    <label class="custom-control-label" for="192">ผู้ช่วยเลขาฯ = 3 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="193" value="2" id="193">
+                    <label class="custom-control-label" for="193">คณะทำงาน = 2 คะแนน</label>
+                </div>
+            </div>
+
+            <!-- Column 3-->
+            <div class="col border border-light m-1">
+                <div class="pt-2 m-1">5.	ได้รับมอบหมายให้สอน/บริการวิชาการ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="195" value="5" id="195">
+                    <label class="custom-control-label" for="195">รับผิดชอบรายวิชาวิชาละ = 5 คะแนน</label>
+                </div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="196" value="0.3" id="196">
+                    <label class="custom-control-label" for="196">สอนครั้งละ = 0.3 คะแนน</label>
+                </div>
+
+                <div class="pt-2 m-1">6.	ได้รับมอบหมายเพิ่มจากงานประจำ</div>
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" name="198" value="0" id="198">
+                    <label class="custom-control-label" for="198">= 5-15 คะแนน</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!--End of group d-->
+        <!--End of development section-->
+
         <div id="row">
             <div class="col">
                 <button class="btn btn-info btn-block my-4" type="submit">Submit</button>
@@ -361,4 +799,4 @@
 </div>
 
 
-<% include footer.ejs %>
+
