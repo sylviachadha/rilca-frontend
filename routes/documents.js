@@ -4,6 +4,15 @@ const pool = require('../core/sql/driver');
 const uniqid = require('uniqid');
 const moment = require('moment');
 
+/**
+ * URL:
+ * prefix url                  : /documents
+ * show all pa documents       : [get] /
+ * show a detail docuemt       : [get] /view_pa_doc?doc_ID=xxx
+ * open form                   : [get] /new_document
+ * submit form                 : [post] /new_document
+ * delete a pa document        : [post] /delete?doc_ID=xxx&item_ID=xxx
+ */
 
 let names = [];
 
@@ -36,7 +45,7 @@ router.get('/', async (req, res) => {
     
 });
 
-//get a specific pa document via document ID
+//get a specific pa document
 router.get('/view_pa_doc', async (req, res) => {
     var doc_ID = req.param('doc_ID');
     console.log(doc_ID);
@@ -88,7 +97,7 @@ router.get('/view_pa_doc', async (req, res) => {
     }
 });
 
-/* open form for academic staff for choosing pa items */
+//open form
 router.get('/new_document', async (req, res) => {
 
     await setNamesInForm();
@@ -96,7 +105,7 @@ router.get('/new_document', async (req, res) => {
 
 });
 
-// submit the choosen pa items
+//submit form
 router.post('/new_document', async (req, res) => {
 
     console.log(JSON.stringify(req.body));
@@ -111,39 +120,74 @@ router.post('/new_document', async (req, res) => {
 
 });
 
-router.get('/calculate_score', async (req, res) => {
-    var doc_ID = req.param('doc_ID');
-    console.log(doc_ID)
+//delete a pa item of a specific document
+router.post('/delete', async (req, res) => {
+    var docID = req.param("doc_ID");
+    var itemID = req.param("item_ID");
 
-    
+    console.log("Request to delete a pa item: " + itemID + " of document: " + docID);
     let conn;
     try {
-        //calculate standard section
-        SSScore = 0;
-        console.log(SSScore)
-        var ssScoreSql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 1 AND 90"
-        console.log(ssScoreSql)
         conn = await pool.getConnection();
-        var rows = await conn.query(ssScoreSql);
-        console.log(rows)
-        console.log(rows[0].Score)
+        await conn.query("DELETE FROM pa_line WHERE PADoc_ID = ? AND PAitem_ID = ?", [docID, itemID]);
+
+        res.redirect('/documents/view_pa_doc?doc_ID='+docID);
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) return conn.end();
+    }
+});
+
+//update score
+router.post('/edit_score', async (req, res) => {
+    var docID = req.param("doc_ID");
+    var itemID = req.param("item_ID");
+    var score = req.score;
+
+    console.log("update score of a pa item: " + itemID + " of document: " + docID + "new score: " + score);
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        await conn.query("UPDATE pa_line SET PAline_score = ? WHERE PADoc_ID = ? AND PAitem_ID = ?", [score, docID, itemID]);
+
+        res.redirect('/documents/view_pa_doc?doc_ID='+docID);
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) return conn.end();
+    }
+});
+
+async function calculateScore(doc_ID) {
+    console.log(doc_ID)
+
+    var result = {};
+
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        var sql = "";
+
+        //calculate raw standard section score
+        SSScore = 0;
+        sql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 1 AND 90"
+        var rows = await conn.query(sql);
         SSScore = rows[0].Score
         console.log("SSScore: " + SSScore)
 
-        //calculate development section
+        //calculate raw development section score
         DSScore = 0;
-        var dsScoreSql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 91 AND 198"
-        console.log(dsScoreSql)
-        rows = await conn.query(dsScoreSql);
-        console.log(rows)
+        sql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 91 AND 198"
+        rows = await conn.query(sql);
         DSScore = rows[0].Score
         console.log("DSSCore: " + DSScore)
 
-        //calculate score of top five staff
+        //calculate score of top five staffs
         var Top5Score = [];
-        var sql = "SELECT sum(pa_line.PAline_Score) as 'total_score', staff.Staff_ID " +
+        sql = "SELECT sum(pa_line.PAline_Score) as 'total_score', staff.Staff_ID " +
         "FROM pa_line INNER join pa_document on pa_line.PADoc_ID = pa_document.Doc_ID " +
-            "INNER JOIN staff on staff.Staff_ID = pa_document.Acad_ID " +
+        "INNER JOIN staff on staff.Staff_ID = pa_document.Acad_ID " +
         "WHERE pa_document.Doc_year = (SELECT pa_document.Doc_year from pa_document WHERE pa_document.Doc_ID = '"+ doc_ID +"') " +
         "AND staff.Program_ID = (SELECT staff.Program_ID from staff INNER JOIN pa_document on staff.staff_id = pa_document.Acad_ID WHERE pa_document.Doc_ID = '"+ doc_ID +"') " +
         "GROUP BY staff.Staff_ID "+
@@ -153,15 +197,15 @@ router.get('/calculate_score', async (req, res) => {
         for (let row of rows) {
             Top5Score.push({"total_score": row.total_score, "Staff_ID": row.Staff_ID})
         }
-        console.log(Top5Score)
+        console.log("Top 5 development section score: " + Top5Score)
 
-        //calculate average of top five staff
+        //calculate average score of top five staff
         Top5Average = 0;
         for (let s of Top5Score){
             Top5Average += s.total_score;
         }
         Top5Average = Top5Average/5;
-        console.log(Top5Average)
+        console.log("Average score to top 5 staffs: " + Top5Average)
 
         //Calculate the final score
         final_ssScore =  0;
@@ -175,15 +219,21 @@ router.get('/calculate_score', async (req, res) => {
         }
         console.log("Final Standard Section Score: " + final_ssScore);
         console.log("Final Development Section Score: " + final_dsScore);
-        
+
+        result.SSScore = SSScore;
+        result.DSScore = DSScore;
+        result.Top5Average = Top5Average;
+        result.final_ssScore = final_ssScore;
+        result.final_dsScore = final_dsScore;
+
+        return(result);
     } catch (err) {
         console.log(err)
         throw err;
     } finally {
         if (conn) return conn.end();
     }
-});
-
+}
 
 async function setNamesInForm() {
     names = [];
@@ -248,6 +298,5 @@ async function insertLine(req, docID) {
         }
     }
 }
-
 
 module.exports = router;
