@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <ul style="list-style-type:circle">
+            <ul>
                 <li>Staff ID:
                     <%= document[0].Staff_ID %>
                 </li>
@@ -20,12 +20,12 @@
             </ul>
         </div>
         <div class="col-md-6">
-            Score board
-            <ul style="list-style-type:circle">
-                <li>Standard Section Score:
-                    <%= finalscore %>
-                </li>
+            <h5>Score Board</h5>
+            <ul>
+                <li>Standard Section score: <b style="color:blue"><%= finalscore.final_ssScore.toFixed(2) %></b></li>
+                <li>Development Section score: <b style="color:blue"><%= finalscore.final_dsScore.toFixed(2) %></b></li>
             </ul>
+            <div style="color:green;font-size:50px; margin: 0px;">Total: <%= (finalscore.final_ssScore + finalscore.final_dsScore).toFixed(2) %></div>
         </div>
     </div>
 </div>

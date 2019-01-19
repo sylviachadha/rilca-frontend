@@ -18,6 +18,8 @@ let names = [];
 
 //get all pa documents
 router.get('/', async (req, res) => {
+    console.log(">>>>>>>>>>Get all PA documents<<<<<<<<");
+
     documents = [];
     const dateformat = require('dateformat');
     let conn;
@@ -36,7 +38,7 @@ router.get('/', async (req, res) => {
                 "Doc_ID": row.Doc_ID
             })
         }
-        console.log(documents);
+        
         res.render('pa_documents', {documents: documents});
     } catch (err) {
         throw err;
@@ -49,7 +51,9 @@ router.get('/', async (req, res) => {
 //get a specific pa document
 router.get('/view_pa_doc', async (req, res) => {
     var doc_ID = req.param('doc_ID');
-    console.log(doc_ID);
+    
+    console.log(">>>>>>>>>>Get a PA document detail<<<<<<<<");
+    console.log("- PA document ID: " + doc_ID);
 
     document = [];
     paLineStandardSection = [];
@@ -69,13 +73,15 @@ router.get('/view_pa_doc', async (req, res) => {
                 "Number_of_Items": row.Number_of_Items,
                 "Approve_Status": row.Approve_Status,
                 "Accept_Status": row.Accept_Status,
-                "Doc_ID": row.Doc_ID
+                "Doc_ID": row.Doc_ID,
+                "Doc_year": row.Doc_year
             })
         }
-        console.log(document);
 
-        //get all pa lines related to pa doucment above
-        var rowsLine = await conn.query("select pa_item.Item_ID, pa_item.Parent_id, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '" + doc_ID + "' AND pa_line.PAItem_ID BETWEEN 1 AND 90");
+        //get all pa lines related to pa doucment above (Standard Section)
+        var rowsLine = await conn.query("select pa_item.Item_ID, pa_item.Parent_id, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score " +
+            "from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '" + 
+            doc_ID + "' AND pa_line.PAItem_ID BETWEEN 1 AND 90");
         for (let row of rowsLine) {
             paLineStandardSection.push({
                 "Item_ID":row.Item_ID,
@@ -86,8 +92,10 @@ router.get('/view_pa_doc', async (req, res) => {
             })
         }
 
-        //get all pa lines related to pa doucment above
-        rowsLine = await conn.query("select pa_item.Item_ID, pa_item.Parent_id, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '"+ doc_ID +"' AND pa_line.PAItem_ID BETWEEN 91 AND 200");
+        //get all pa lines related to pa doucment above (Development Section)
+        rowsLine = await conn.query("select pa_item.Item_ID, pa_item.Parent_id, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score " + 
+            "from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '"+ 
+            doc_ID +"' AND pa_line.PAItem_ID BETWEEN 91 AND 200");
         for (let row of rowsLine) {
             paLineDevelopmentSection.push({
                 "Item_ID":row.Item_ID,
@@ -98,10 +106,11 @@ router.get('/view_pa_doc', async (req, res) => {
             })
         }
 
+        //Call calculate score function to calculate score of the document
         var finalscore = await calculateScore(doc_ID);
-        //console.log("Final Score: " + finalscore.final_dsScore);
         
-        res.render('pa_document_detail', {document: document, paLinesSS:paLineStandardSection, paLinesDS:paLineDevelopmentSection, finalscore: finalscore});
+        res.render('pa_document_detail', {document: document, paLinesSS:paLineStandardSection, 
+            paLinesDS:paLineDevelopmentSection, finalscore: finalscore[0]});
     } catch (err) {
         console.log(err)
         throw err;
@@ -110,6 +119,7 @@ router.get('/view_pa_doc', async (req, res) => {
     }
 });
 
+//get full description of a pa item
 async function getFullPAItemDesc(language, itemID){
     console.log("Get full description: " + language + itemID)
     var result="";
@@ -142,7 +152,7 @@ async function getFullPAItemDesc(language, itemID){
     }
 }
 
-//open form
+//open pa item form
 router.get('/new_document', async (req, res) => {
 
     await setNamesInForm();
@@ -150,7 +160,7 @@ router.get('/new_document', async (req, res) => {
 
 });
 
-//submit form
+//submit form (create document + store pa lines)
 router.post('/new_document', async (req, res) => {
 
     console.log(JSON.stringify(req.body));
@@ -170,7 +180,10 @@ router.post('/delete_item', async (req, res) => {
     var docID = req.param("doc_ID");
     var itemID = req.param("item_ID");
 
-    console.log("Request to delete a pa item: " + itemID + " of document: " + docID);
+    console.log(">>>>>>>>>Delete PA Item<<<<<<<<<<")
+    console.log("- Document ID: " + docID);
+    console.log("- PA Item ID: " + itemID);
+
     let conn;
     try {
         conn = await pool.getConnection();
@@ -184,13 +197,17 @@ router.post('/delete_item', async (req, res) => {
     }
 });
 
-//update score
+//update score of a pa item
 router.post('/edit_score', async (req, res) => {
     var docID = req.param("doc_ID");
     var itemID = req.param("item_ID");
     var newScore = req.body.newScore;
 
-    console.log("update score of a pa item: " + itemID + " of document: " + docID + "new score: " + newScore);
+    console.log(">>>>>>>>>Update PA Item score<<<<<<<<<<")
+    console.log("- Document ID: " + docID);
+    console.log("- PA Item ID: " + itemID);
+    console.log("- New score: " + newScore);
+
     let conn;
     try {
         conn = await pool.getConnection();
@@ -204,8 +221,10 @@ router.post('/edit_score', async (req, res) => {
     }
 });
 
+//Calculate the score of a pa document
 async function calculateScore(doc_ID) {
-    console.log(doc_ID)
+
+    console.log(">>>>>>>>>>Calculate Score<<<<<<<<<<")
 
     let conn;
     try {
@@ -217,14 +236,14 @@ async function calculateScore(doc_ID) {
         sql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 1 AND 90"
         var rows = await conn.query(sql);
         SSScore = rows[0].Score==null?0:rows[0].Score;
-        console.log("SSScore: " + SSScore)
+        console.log("- Raw standard section score: " + SSScore)
 
         //calculate raw development section score
         DSScore = 0;
         sql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 91 AND 198"
         rows = await conn.query(sql);
-        DSScore = rows[0].Score
-        console.log("DSSCore: " + DSScore)
+        DSScore = rows[0].Score==null?0:rows[0].Score;
+        console.log("- Raw development section score: " + DSScore)
 
         //calculate score of top five staffs
         var Top5Score = [];
@@ -240,7 +259,6 @@ async function calculateScore(doc_ID) {
         for (let row of rows) {
             Top5Score.push({"total_score": row.total_score, "Staff_ID": row.Staff_ID})
         }
-        console.log("Top 5 development section score: " + Top5Score)
 
         //calculate average score of top five staff
         Top5Average = 0;
@@ -248,7 +266,7 @@ async function calculateScore(doc_ID) {
             Top5Average += s.total_score;
         }
         Top5Average = Top5Average/5;
-        console.log("Average score to top 5 staffs: " + Top5Average)
+        console.log("- Average score to top 5 staffs: " + Top5Average)
 
         //Calculate the final score
         final_ssScore =  0;
@@ -260,11 +278,10 @@ async function calculateScore(doc_ID) {
             final_ssScore = SSScore;
             final_dsScore = (DSScore*20)/Top5Average;
         }
-        console.log("Final Standard Section Score: " + final_ssScore);
-        console.log("Final Development Section Score: " + final_dsScore);
+        console.log("- Final Standard Section Score: " + final_ssScore);
+        console.log("- Final Development Section Score: " + final_dsScore);
 
         var result = [];
-
         result.push({
             "SSScore": SSScore,
             "DSScore": DSScore,
@@ -272,18 +289,15 @@ async function calculateScore(doc_ID) {
             "final_ssScore": final_ssScore,
             "final_dsScore": final_dsScore
         });
+        return result;
 
-        var final_result = parseInt(result[0].final_dsScore) + parseInt(result[0].final_ssScore);
-        console.log("Result: " + final_result);
-
-        return final_result;
     } catch (err) {
         console.log(err)
         throw err;
     } finally {
         if (conn) {
             conn.end();
-            return final_result;
+            return result;
         }
     }
 }
