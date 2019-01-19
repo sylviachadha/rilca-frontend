@@ -11,7 +11,7 @@ const moment = require('moment');
  * show a detail docuemt       : [get] /view_pa_doc?doc_ID=xxx
  * open form                   : [get] /new_document
  * submit form                 : [post] /new_document
- * delete a pa document        : [post] /delete?doc_ID=xxx&item_ID=xxx
+ * delete a pa item in a doc   : [post] /delete_item?doc_ID=xxx&item_ID=xxx
  */
 
 let names = [];
@@ -19,16 +19,17 @@ let names = [];
 //get all pa documents
 router.get('/', async (req, res) => {
     documents = [];
+    const dateformat = require('dateformat');
     let conn;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("select * from v_get_document");
+        const rows = await conn.query("select * from v_get_document order by Set_date desc");
         for (let row of rows) {
             documents.push({
                 "Staff_ID": row.Staff_ID, 
                 "Full_Name": row.Full_Name, 
                 "Title": row.Title,
-                "Set_date": row.Set_date,
+                "Set_date": dateformat(row.Set_date, 'dddd, mmmm dS, yyyy'),
                 "Number_of_Items": row.Number_of_Items,
                 "Approve_Status": row.Approve_Status,
                 "Accept_Status": row.Accept_Status,
@@ -51,44 +52,56 @@ router.get('/view_pa_doc', async (req, res) => {
     console.log(doc_ID);
 
     document = [];
-    paLines = [];
+    paLineStandardSection = [];
+    paLineDevelopmentSection = [];
 
     let conn;
     try {
         conn = await pool.getConnection();
         //get a specific document
-        const rowsDoc = await conn.query("select * from pa_document where doc_ID = '" + doc_ID + "'");
+        const rowsDoc = await conn.query("select * from v_get_document where doc_ID = '" + doc_ID + "'");
         for (let row of rowsDoc) {
             document.push({
-                "Doc_ID":row.Doc_ID,
-                "Doc_year":row.Doc_year,
-                "Doc_Status":row.Doc_Status,
-                "DirSign_Date":row.DirSign_Date,
-                "DDirSign_Date":row.DDirSign_Date,
-                "Approve_Date":row.Approve_Date,
-                "Set_date":row.Set_date,
-                "Accept_date":row.Accept_date,
-                "SignDir_ID":row.SignDir_ID,
-                "SignDDir_ID":row.SignDDir_ID,
-                "PAExec_ID":row.PAExec_ID,
-                "Acad_ID":row.PAExec_ID
+                "Staff_ID": row.Staff_ID, 
+                "Full_Name": row.Full_Name, 
+                "Title": row.Title,
+                "Set_date": row.Set_date,
+                "Number_of_Items": row.Number_of_Items,
+                "Approve_Status": row.Approve_Status,
+                "Accept_Status": row.Accept_Status,
+                "Doc_ID": row.Doc_ID
             })
         }
         console.log(document);
 
         //get all pa lines related to pa doucment above
-        const rowsLine = await conn.query("select pa_item.Item_ID, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '"+ doc_ID +"'");
+        var rowsLine = await conn.query("select pa_item.Item_ID, pa_item.Parent_id, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '" + doc_ID + "' AND pa_line.PAItem_ID BETWEEN 1 AND 90");
         for (let row of rowsLine) {
-            paLines.push({
+            paLineStandardSection.push({
                 "Item_ID":row.Item_ID,
+                "Parent_id":row.Parent_id,
                 "G_Desc_eng":row.G_Desc_eng,
                 "G_Desc_thai":row.G_Desc_thai,
-                "PAline_Score":row.PAline_Score
+                "PAline_Score":row.PAline_Score,
             })
         }
-        console.log(paLines);
+
+        //get all pa lines related to pa doucment above
+        rowsLine = await conn.query("select pa_item.Item_ID, pa_item.Parent_id, pa_item.G_Desc_eng, pa_item.G_Desc_thai, pa_line.PAline_Score from pa_line inner join pa_item on pa_line.PAItem_ID = pa_item.Item_ID where PADoc_ID = '"+ doc_ID +"' AND pa_line.PAItem_ID BETWEEN 91 AND 200");
+        for (let row of rowsLine) {
+            paLineDevelopmentSection.push({
+                "Item_ID":row.Item_ID,
+                "Parent_id":row.Parent_id,
+                "G_Desc_eng":row.G_Desc_eng,
+                "G_Desc_thai":row.G_Desc_thai,
+                "PAline_Score":row.PAline_Score,
+            })
+        }
+
+        var finalscore = await calculateScore(doc_ID);
+        //console.log("Final Score: " + finalscore.final_dsScore);
         
-        res.render('pa_document_detail', {document: document, paLines:paLines});
+        res.render('pa_document_detail', {document: document, paLinesSS:paLineStandardSection, paLinesDS:paLineDevelopmentSection, finalscore: finalscore});
     } catch (err) {
         console.log(err)
         throw err;
@@ -96,6 +109,38 @@ router.get('/view_pa_doc', async (req, res) => {
         if (conn) return conn.end();
     }
 });
+
+async function getFullPAItemDesc(language, itemID){
+    console.log("Get full description: " + language + itemID)
+    var result="";
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        var sql = "WITH recursive EXPL AS " +
+        "( " +
+        "SELECT root.Item_ID, root.Parent_id, root.G_Desc_eng, root.G_Desc_thai " +
+        "FROM pa_item as root " +
+        "WHERE root.Item_ID = '"+ itemID +"' " +
+        "UNION ALL " +
+        "SELECT child.Item_ID, child.Parent_id, child.G_Desc_eng, child.G_Desc_thai " +
+        "FROM EXPL as parent JOIN pa_item as child ON parent.Parent_id = child.Item_ID " +
+        "AND child.Item_ID <> child.Parent_id " +
+        ") " +
+        "SELECT * FROM EXPL"
+        const rows = await conn.query(sql);
+        console.log("rows: " + rows);
+        for (let row of rows) {
+            if (language == "English") result += row.G_Desc_eng;
+            else result += row.G_Desc_thai;
+        }
+        return(result);
+    } catch (err) {
+        console.log(err)
+        throw err;
+    } finally {
+        if (conn) return conn.end();
+    }
+}
 
 //open form
 router.get('/new_document', async (req, res) => {
@@ -121,7 +166,7 @@ router.post('/new_document', async (req, res) => {
 });
 
 //delete a pa item of a specific document
-router.post('/delete', async (req, res) => {
+router.post('/delete_item', async (req, res) => {
     var docID = req.param("doc_ID");
     var itemID = req.param("item_ID");
 
@@ -143,13 +188,13 @@ router.post('/delete', async (req, res) => {
 router.post('/edit_score', async (req, res) => {
     var docID = req.param("doc_ID");
     var itemID = req.param("item_ID");
-    var score = req.score;
+    var newScore = req.body.newScore;
 
-    console.log("update score of a pa item: " + itemID + " of document: " + docID + "new score: " + score);
+    console.log("update score of a pa item: " + itemID + " of document: " + docID + "new score: " + newScore);
     let conn;
     try {
         conn = await pool.getConnection();
-        await conn.query("UPDATE pa_line SET PAline_score = ? WHERE PADoc_ID = ? AND PAitem_ID = ?", [score, docID, itemID]);
+        await conn.query("UPDATE pa_line SET PAline_score = ? WHERE PADoc_ID = ? AND PAitem_ID = ?", [newScore, docID, itemID]);
 
         res.redirect('/documents/view_pa_doc?doc_ID='+docID);
     } catch (err) {
@@ -162,8 +207,6 @@ router.post('/edit_score', async (req, res) => {
 async function calculateScore(doc_ID) {
     console.log(doc_ID)
 
-    var result = {};
-
     let conn;
     try {
         conn = await pool.getConnection();
@@ -173,7 +216,7 @@ async function calculateScore(doc_ID) {
         SSScore = 0;
         sql = "SELECT SUM(PAline_Score) as 'Score' FROM pa_line WHERE PADoc_ID = '"+ doc_ID +"' AND PAitem_ID BETWEEN 1 AND 90"
         var rows = await conn.query(sql);
-        SSScore = rows[0].Score
+        SSScore = rows[0].Score==null?0:rows[0].Score;
         console.log("SSScore: " + SSScore)
 
         //calculate raw development section score
@@ -220,18 +263,28 @@ async function calculateScore(doc_ID) {
         console.log("Final Standard Section Score: " + final_ssScore);
         console.log("Final Development Section Score: " + final_dsScore);
 
-        result.SSScore = SSScore;
-        result.DSScore = DSScore;
-        result.Top5Average = Top5Average;
-        result.final_ssScore = final_ssScore;
-        result.final_dsScore = final_dsScore;
+        var result = [];
 
-        return(result);
+        result.push({
+            "SSScore": SSScore,
+            "DSScore": DSScore,
+            "Top5Average": Top5Average,
+            "final_ssScore": final_ssScore,
+            "final_dsScore": final_dsScore
+        });
+
+        var final_result = parseInt(result[0].final_dsScore) + parseInt(result[0].final_ssScore);
+        console.log("Result: " + final_result);
+
+        return final_result;
     } catch (err) {
         console.log(err)
         throw err;
     } finally {
-        if (conn) return conn.end();
+        if (conn) {
+            conn.end();
+            return final_result;
+        }
     }
 }
 

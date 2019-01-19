@@ -4,16 +4,34 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-
+            <ul style="list-style-type:circle">
+                <li>Staff ID:
+                    <%= document[0].Staff_ID %>
+                </li>
+                <li>Name:
+                    <%= document[0].Full_Name %>
+                </li>
+                <li>Title:
+                    <%= document[0].Title %>
+                </li>
+                <li>Academic year:
+                    <%= document[0].Doc_year %>
+                </li>
+            </ul>
         </div>
         <div class="col-md-6">
-            column 2
+            Score board
+            <ul style="list-style-type:circle">
+                <li>Standard Section Score:
+                    <%= finalscore %>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
 <br>
 
-<h4>Chosen Items</h4>
+<h4>Standard Section</h4>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -24,7 +42,7 @@
         </tr>
     </thead>
     <tbody>
-        <% paLines.forEach(function(line){ %>
+        <% paLinesSS.forEach(function(line){ %>
         <tr>
             <td>
                 <%= line.Item_ID %>
@@ -46,15 +64,12 @@
                                 <h4 class="modal-title">Edit Score</h4>
                             </div>
                             <div class="modal-body">
-                                <p>Item number:
-                                    <%= line.Item_ID %> :
-                                    <%= line.G_Desc_eng %>
-                                </p>
+                                <p>Item number: <%= line.Item_ID %> : <%= line.G_Desc_eng %> </p>
                                 <form action="/documents/edit_score?doc_ID=<%= document[0].Doc_ID %>&item_ID=<%= line.Item_ID %>"
                                     method="POST" class="form-sample">
                                     <div class="form-group">
-                                        <label for="score">Score</label>
-                                        <input id="score" name="score" class="form-control" value="<%= line.PAline_Score %>" />
+                                        <label for="newScore">Score</label>
+                                        <input id="newScore" name="newScore" class="form-control" value="<%= line.PAline_Score %>" type="number"/>
                                     </div>
                                     <!--</form>-->
                             </div>
@@ -77,15 +92,90 @@
                                 <h4 class="modal-title">Are you sure you want to delete?</h4>
                             </div>
                             <div class="modal-body">
-                                <p>You are about to delete a item number:
-                                    <%= line.Item_ID %> :
-                                    <%= line.G_Desc_eng %>
-                                </p>
+                                <p>You are about to delete a item number: <%= line.Item_ID %> : <%= line.G_Desc_eng %></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                                <form action="/documents/delete?doc_ID=<%= document[0].Doc_ID %>&item_ID=<%= line.Item_ID %>"" method="
-                                    POST" style="display:inline-block">
+                                <form action="/documents/delete_item?doc_ID=<%= document[0].Doc_ID %>&item_ID=<%= line.Item_ID %>"" method="POST" style="display:inline-block">
+                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end of confirm deleting-->
+            </td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+<h4>Development Section</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>PA Item ID</th>
+            <th>Description</th>
+            <th>Score</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% paLinesDS.forEach(function(line){%>
+        <tr>
+            <td>
+                <%= line.Item_ID %>
+            </td>
+            <td>
+                <%= line.G_Desc_eng %> <br>
+                <%= line.G_Desc_thai %>
+            </td>
+            <td>
+                <%= line.PAline_Score %>
+            </td>
+            <td>
+                <!-- Edit Score -->
+                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editScoreModal<%= line.Item_ID %>"><i class="fas fa-edit"></i></button>
+                <div class="modal fade" id="editScoreModal<%= line.Item_ID %>" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Score</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Item number: <%= line.Item_ID %> : <%= line.G_Desc_eng %> </p>
+                                <form action="/documents/edit_score?doc_ID=<%= document[0].Doc_ID %>&item_ID=<%= line.Item_ID %>"
+                                    method="POST" class="form-sample">
+                                    <div class="form-group">
+                                        <label for="newScore">Score</label>
+                                        <input id="newScore" name="newScore" class="form-control" value="<%= line.PAline_Score %>" type="number"/>
+                                    </div>
+                                    <!--</form>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <!--<form>-->
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end of edit score-->
+                <!-- confirm deleting -->
+                <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#confirmDeleteModal<%= line.Item_ID %>"><i class="fas fa-trash-alt"></i></button>
+                <div class="modal fade" id="confirmDeleteModal<%= line.Item_ID %>" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Are you sure you want to delete?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>You are about to delete a item number: <%= line.Item_ID %> : <%= line.G_Desc_eng %></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                <form action="/documents/delete_item?doc_ID=<%= document[0].Doc_ID %>&item_ID=<%= line.Item_ID %>"" method="POST" style="display:inline-block">
                                     <button type="submit" class="btn btn-danger">Yes</button>
                                 </form>
                             </div>

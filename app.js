@@ -8,6 +8,7 @@ var engine = require('ejs-locals');
 const documentRouter = require('./routes/documents');
 const staffRouter = require('./routes/staffs')
 const paItemRouter = require('./routes/pa_items')
+const homeRouter = require('./routes/home')
 
 const app = express();
 
@@ -24,7 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/documents', documentRouter);
 app.use('/staffs', staffRouter);
-app.use('/staffs', paItemRouter);
+app.use('/pa_items', paItemRouter);
+app.use('/', homeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
