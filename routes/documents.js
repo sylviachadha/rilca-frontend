@@ -324,7 +324,7 @@ async function insertDocument(req, docID) {
         json.docYear = moment().year();
         json.docID = docID;
         json.docStatus = 'Submitted';
-        json.date = new Date().toLocaleString();
+        json.date = new Date();
         json.academicStaffId = req.staffID;
 
         let conn;
@@ -355,7 +355,7 @@ async function insertLine(req, docID) {
                     if (key === '89') val = 15;
                     if (key === '90') val = 5;
                 }
-                var currentDate = new Date().toLocaleString();
+                var currentDate = new Date();
                 if (key !== 'staffID' && executeQuery) conn.query("INSERT INTO PA_LINE(PAline_Score,PADoc_ID,PAitem_ID,upsert_date) values (?,?,?,?) ", [val, docID, key, currentDate]);
             });
         } catch (err) {
