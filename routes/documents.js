@@ -341,8 +341,8 @@ async function insertLine(req, docID) {
                     if (key === '89') val = 15;
                     if (key === '90') val = 5;
                 }
-
-                if (key !== 'staffID' && executeQuery) conn.query("INSERT INTO PA_LINE(PAline_Score,PADoc_ID,PAitem_ID,upsert_date) values (?,?,?,?) ", [val, docID, key, new Date().toLocaleString()]);
+                var currentDate = new Date().toLocaleString();
+                if (key !== 'staffID' && executeQuery) conn.query("INSERT INTO PA_LINE(PAline_Score,PADoc_ID,PAitem_ID,upsert_date) values (?,?,?,?) ", [val, docID, key, currentDate]);
             });
         } catch (err) {
             throw err;
