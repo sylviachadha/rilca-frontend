@@ -15,6 +15,36 @@ router.get('/', async (req, res) => {
 
 });
 
+//Test
+router.get('/index', async (req, res) => {
+    console.log("Start");
+    documents = [];
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("select * from v_get_document");
+        for (let row of rows) {
+            documents.push({
+                "Staff_ID": row.Staff_ID, 
+                "Full_Name": row.Full_Name, 
+                "Title": row.Title,
+                "Set_date": row.Set_date,
+                "Number_of_Items": row.Number_of_Items,
+                "Approve_Status": row.Approve_Status,
+                "Accept_Status": row.Accept_Status,
+                "Doc_ID": row.Doc_ID
+            })
+        }
+        console.log(documents);
+        res.render('pa_documents', {dd: documents});
+    } catch (err) {
+        throw err;
+    } finally {
+        if (conn) return conn.end();
+    }
+    
+});
+
 router.post('/form', async (req, res) => {
 
     console.log(JSON.stringify(req.body));
